@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -19,7 +18,7 @@ func main() {
 	//route handler for home page
 	http.HandleFunc("/", handler)
 
-	fmt.Println("server is running on http://localhost:8080")
+	log.Println("server is running on http://localhost:8080")
 	// start the server on port 8080 and listen to incoming requests
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
@@ -33,12 +32,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	tmpl, _ := template.ParseFiles("templates/home.html")
 	data := PageData{}
 	if r.Method == http.MethodPost {
-		input := r.FormValue("text")
+		input := r.FormValue("userText")
 		banner := r.FormValue("style")
 
-		asciiArt := ascii.PrintAsciiArt(input, banner)
-
-		data.AsciiArt = asciiArt
+		data.AsciiArt = ascii.PrintAsciiArt(input, banner)
 
 	}
 	tmpl.Execute(w, data)
