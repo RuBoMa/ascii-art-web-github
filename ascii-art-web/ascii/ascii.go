@@ -1,7 +1,7 @@
 package ascii
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -10,10 +10,15 @@ import (
 func PrintAsciiArt(input, banner string) string {
 
 	var result string
-
+	input = cleanStr(input)
+	if len(input) == 0 {
+		return "Error"
+	}
 	bannerFile, err := os.ReadFile("./banners/" + banner + ".txt")
 	if err != nil {
-		fmt.Print("ERROR: Couldn't read the banner file: ", err)
+		log.Print("ERROR: Couldn't read the banner file: ", err)
+		result = "ERROR: banner issues"
+		return result
 
 	} else if len(input) != 0 {
 		cleaned := cleanInput(bannerFile)
@@ -21,7 +26,8 @@ func PrintAsciiArt(input, banner string) string {
 		bannerFileLines := strings.Split(string(cleaned), "\n")
 
 		//splitting the input into a slice by \n
-		words := strings.Split(input, "\\n")
+		input = strings.ReplaceAll(input, "\\n", "\n")
+		words := strings.Split(input, "\n")
 
 		onlyNewLines := true
 
@@ -53,3 +59,17 @@ func cleanInput(fileContent []byte) string {
 	return strings.ReplaceAll(string(fileContent), "\r\n", "\n")
 
 }
+
+func cleanStr(s string) string {
+	cleanedStr := ""
+
+	for _, char := range s {
+		if char >= 32 && char <= 127 || char == '\n' {
+			cleanedStr += string(char)
+		}
+	}
+	return cleanedStr
+}
+
+// lisää infoboxi jossa kerrotaan käyttäjälle mitkä charachterit toimii inputkentässä
+// '+"'"+'

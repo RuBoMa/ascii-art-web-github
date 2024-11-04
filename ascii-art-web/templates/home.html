@@ -4,33 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Roopen ja Fannin ASCII-ART-WEB-GENERATOR</title>
     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 </head>
 
 
 <body>
+
     <h1>ASCII-ART-WEB-GENERATOR</h1>
 
     <form method="POST" action="/">
-        <div>
-            <label for="text">Input:</label>
-            <textarea id="text" name="text" placeholder="Type something here..." required rows="1" cols="25"></textarea>
-            <!-- Textarea for user input -->
-        </div>
-        <div>
-            <label for="style">Choose a font:</label>
-            <select name="style" id="style">
-                <option value="standard">Standard</option>
-                <option value="shadow">Shadow</option>
-                <option value="thinkertoy">Thinkertoy</option>
-            </select>
-        </div>
+        <div class="hero">
+            <div>
+                <label for="style">Choose a font:</label>
+                <select name="style" id="style">
+                    <option value="standard">Standard</option>
+                    <option value="shadow">Shadow</option>
+                    <option value="thinkertoy">Thinkertoy</option>
+                </select>
+            </div>
+            <div>
 
-        <button type="submit">Generate</button>
-        <button type="submit">Test All</button>
-        </div>
+                <textarea id="text" name="text" placeholder="Type something here..." required rows="3"
+                    cols="25"></textarea>
+                <!-- Textarea for user input -->
+            </div>
 
+
+            <button type="submit">Generate</button>
+
+        </div>
+        </div>
     </form>
 
     <pre>{{ .AsciiArt }}</pre>
