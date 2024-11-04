@@ -34,3 +34,37 @@ select, textarea, button {
 label {
     color: white;
 }
+/* Style the button */
+.info-button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Hide the info text by default */
+.info-text {
+    visibility: hidden; /* Makes it invisible */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* Show info text on hover */
+.info-button:hover + .info-text {
+    visibility: visible;
+}
+
+.info-text a {
+    color: #4da6ff;
+    text-decoration: none;
+}
+
+.info-text a:hover {
+    text-decoration: underline;
+}
