@@ -29,7 +29,7 @@ func main() {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	//loads home.html from templates folder
-	tmpl, _ := template.ParseFiles("templates/home.html")
+	tmpl, _ := template.ParseFiles("templates/home.html", "templates/notfound.html")
 	data := PageData{}
 	if r.Method == http.MethodPost {
 		input := r.FormValue("userText")
