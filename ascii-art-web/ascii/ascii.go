@@ -7,86 +7,59 @@ import (
 )
 
 // reading the banner file and printing ascii art matching the input argument
-func PrintAsciiArt(input, banner string) string {
+func PrintAsciiArt(input, banner string) (string, error) {
 
-	var result strings.Builder
+	var result string
+	var httpError error
 
-	if len(input) == 0 {
-		return "Error"
-	}
 	bannerFile, err := os.ReadFile("./banners/" + banner + ".txt")
 	if err != nil {
-		log.Print("ERROR: Couldn't read the banner file: ", err)
-		result.WriteString("ERROR: banner issues")
+		log.Print("Error reading banner file: ", err)
+		httpError = err
 	} else if len(input) != 0 {
-		cleanBannerFile := cleanBanner(bannerFile)
+		cleanBannerFile := strings.ReplaceAll(string(bannerFile), "\r\n", "\n")
 		bannerFileLines := strings.Split(string(cleanBannerFile), "\n")
 
 		input = strings.ReplaceAll(input, "\\n", "\n")
+		input = cleanInput(input)
 		inputSlice := strings.Split(input, "\n")
-		removedChar := ""
-		inputSlice, removedChar = cleanInput(inputSlice)
 
-		if removedChar != "" {
-			result.WriteString("These characters were removed: " + removedChar + "\n\n")
-		}
+		onlyNewLines := true
 
 		//An empty index generates a newline, else the index is looped to match indexes from bannerFileLines
 		for _, inputLine := range inputSlice {
 			if inputLine == "" {
-				result.WriteString("\n")
+				result += "\n"
 			} else {
+				onlyNewLines = false
 				for i := 1; i <= 8; i++ {
 					for _, char := range inputLine {
-						result.WriteString(bannerFileLines[i+(int(char-32)*9)])
+						result += bannerFileLines[i+(int(char-32)*9)]
 					}
-					result.WriteString("\n")
+					result += "\n"
 				}
 			}
+		}
+		if onlyNewLines {
+			result = result[:1]
 		}
 
 	}
 
-	return result.String()
+	return result, httpError
 }
 
-// Replacing carriage return with a newline
-func cleanBanner(fileContent []byte) string {
+// Removing everything that is not printable ascii character from the input
+func cleanInput(input string) string {
+	var cleanInput strings.Builder
 
-	return strings.ReplaceAll(string(fileContent), "\r\n", "\n")
-
-}
-
-// Removing everything that is not printable ascii character nor new line from the input
-func cleanInput(input []string) ([]string, string) {
-	onlyNewLines := true
-	var cleanInput []string
-	var removedChar strings.Builder
-
-	for _, lines := range input {
-		if lines == "" {
-			cleanInput = append(cleanInput, lines)
-		} else {
-			var printableChars strings.Builder
-			onlyNewLines = false
-			for _, char := range lines {
-				if char >= 32 && char <= 126 {
-					printableChars.WriteString(string(char))
-				} else {
-					removedChar.WriteString(string(char) + " ")
-				}
-			}
-			if printableChars.String() != "" {
-				cleanInput = append(cleanInput, printableChars.String())
-			}
+	for _, char := range input {
+		if char >= 32 && char <= 126 || char == '\n' {
+			cleanInput.WriteRune(char)
 		}
-
-	}
-	if onlyNewLines {
-		cleanInput = cleanInput[:1]
 	}
 
-	return cleanInput, removedChar.String()
+	return cleanInput.String()
 }
 
 // lisää infoboxi jossa kerrotaan käyttäjälle mitkä charachterit toimii inputkentässä
