@@ -87,7 +87,8 @@ label {
     margin: 10px auto; 
     background-color: #c6f5fb;
     overflow-y: scroll;
-    white-space: pre-wrap;
+    overflow-x: auto;
+    white-space: pre;
     border-radius: 8px;
     justify-content: center;
     max-height: 600px;
