@@ -64,10 +64,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 // 500 internal server error handler
 func serverErrorHandler(w http.ResponseWriter, tmpl *template.Template) {
-	// Set the HTTP status code to 500
 	w.WriteHeader(http.StatusInternalServerError)
-
-	// Render the template without additional data
 	tmpl.ExecuteTemplate(w, "500.html", nil)
 }
 
