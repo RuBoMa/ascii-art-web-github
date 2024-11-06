@@ -11,6 +11,10 @@ type PageData struct {
 	AsciiArt string
 }
 
+type errPage struct {
+	notFound string
+}
+
 func main() {
 	// server static files like css or images
 	fs := http.FileServer(http.Dir("assets"))
@@ -31,6 +35,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	//loads home.html from templates folder
 	tmpl, _ := template.ParseFiles("templates/home.html", "templates/notfound.html")
 	data := PageData{}
+
+	if r.URL.Path != "/" {
+		notFoundHandler(w, tmpl)
+		return
+	}
 	if r.Method == http.MethodPost {
 		input := r.FormValue("userText")
 		banner := r.FormValue("style")
@@ -38,6 +47,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		data.AsciiArt = ascii.PrintAsciiArt(input, banner)
 
 	}
-	tmpl.Execute(w, data)
+	tmpl.ExecuteTemplate(w, "home.html", data)
 
+}
+// 404 page not found handler
+func notFoundHandler(w http.ResponseWriter, tmpl *template.Template) {
+	w.WriteHeader(http.StatusNotFound)
+	tmpl.ExecuteTemplate(w, "notfound.html", nil)
 }
