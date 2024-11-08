@@ -11,9 +11,9 @@
 
 <body>
 
-    
 
-    <form method="POST" action="/">
+
+    <form method="POST" action="/ascii-art">
         <div class="hero">
             <div>
                 <h1>ASCII-ART-WEB-GENERATOR</h1>
@@ -23,30 +23,37 @@
                     <option value="shadow">Shadow</option>
                     <option value="thinkertoy">Thinkertoy</option>
                 </select>
+                <span class="icon">ℹ️</span>
+                <span class="info-text">This website generates ASCII art from user input.<br>Select a font and type in
+                    the
+                    field below.<br>Note: only printable ASCII characters are supported.<br>Click ASCII Table to see
+                    ascii
+                    characters
+                    (32-127 are printable ASCII characters).</span>
             </div>
+            
             <div>
 
                 <textarea id="userText" name="userText" placeholder="Type something here..." required rows="3"
                     cols="25"></textarea>
                 <!-- Textarea for user input -->
+
             </div>
 
 
-            <button type="submit">Generate</button>
-            <button class="info-button">Info</button>
-            
-            <span class="info-text">This website generates ASCII art from user input. Select a font and type in the
-                field below. Note: only printable ASCII characters are supported. Click learn more to read about
-                printable ASCII characters.</span>
+            <button class="generate" type="submit">Generate</button>
+
+
+
             <button>
-                <a href="https://www.asciitable.com/" target="_blank" class="learn-more-button">Learn more</a>
+                <a href="https://www.asciitable.com/" target="_blank" class="learn-more-button">ASCII Table</a>
             </button>
             <pre id="output-box" class="output-box"> {{ .AsciiArt }}</pre>
         </div>
         </div>
     </form>
 
-    
+
 </body>
 
 </html>

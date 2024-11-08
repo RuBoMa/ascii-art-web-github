@@ -37,7 +37,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	data := PageData{}
 
-	if r.URL.Path != "/" {
+	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art"){
 		notFoundHandler(w, tmpl)
 		return
 	}

@@ -4,6 +4,8 @@ ASCII Art Generator
 Description:
 ASCII Art Generator is a Go-based tool that converts text input into ASCII art. This project is designed for fun and learning, allowing users to create customized text art for terminal or web displays.
 
+Authors: Fanni & Roope
+
 Features:
 Text-to-ASCII art conversion
 Supports multiple ASCII styles (standard, shadow, thinkertoy)
@@ -14,6 +16,8 @@ Usage:
 Start the Server: Run the following command in your terminal to start the server: go run main.go
 
 Open in Browser: In your browser, navigate to http://localhost:8080
+
+After page is live, just simply type text to the input field and press "generate"
 
 Generate ASCII Art:
 

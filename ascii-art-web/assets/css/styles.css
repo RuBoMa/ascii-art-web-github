@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     height: 100%;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -8,9 +9,7 @@ html, body {
 }
 
 h1 {
-     color: lightcoral;
-    /* background-color: lightblue;
-    border: 1px solid black; */
+    color: lightcoral;
     text-align: center;
 }
 
@@ -19,8 +18,6 @@ h1 {
     background-repeat: no-repeat;
     background-size: auto;
     padding-top: 50px;
-    /* padding-bottom: 500px;*/
-    /* background-size: 100%;  */
     width: 100vw;
     height: 100vw;
 }
@@ -38,26 +35,29 @@ pre {
 select,
 textarea,
 button {
-    margin: 10px 0;
-}
+    margin: 10px;
 
+}
+/* generate button size */
+.generate {
+    padding: 16px;
+    border-radius: 16px
+}
+/* choose font */
 label {
     color: white;
 }
-/* Style the button */
-.info-button {
-    /* padding: 5px; */
-    /* font-size: 16px; */
+
+.icon {
     cursor: pointer;
 }
 
 /* Hide the info text by default */
 .info-text {
     visibility: hidden;
-    /* Makes it invisible */
     background-color: #333;
     color: #fff;
-    text-align: center;
+    text-align: left;
     padding: 5px;
     border-radius: 5px;
     position: absolute;
@@ -67,23 +67,15 @@ label {
 }
 
 /* Show info text on hover */
-.info-button:hover+.info-text {
+.icon:hover+.info-text {
     visibility: visible;
+    pointer-events: none;
 }
-
-.info-text a {
-    color: #4da6ff;
-    text-decoration: none;
-}
-
-.info-text a:hover {
-    text-decoration: underline;
-}
-
+/* ASCII art box */
 .output-box {
     width: 90%;
     border: 1px solid #ccc;
-    margin: 10px auto; 
+    margin: 10px auto;
     background-color: #c6f5fb;
     overflow-y: scroll;
     overflow-x: auto;
@@ -93,6 +85,7 @@ label {
     max-height: 600px;
 }
 
+/* 505 internal server error */
 .serverError {
     display: flex;
     flex-direction: column;
@@ -101,8 +94,26 @@ label {
     height: 100vh;
     text-align: center;
 }
+
+/* image for internal server error */
 .error {
     image-rendering: url("../image/error_image.png");
     max-width: 400px;
     margin: 20px;
+}
+
+/* 404 page not found */
+p {
+    text-align: center;
+}
+
+/* 404 page not found image */
+.error-container {
+    background-image: url("/assets/image/DALL.webp");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 300px;
+    background-position: center;
+    width: 100%;
+    padding-top: 200px;
 }
