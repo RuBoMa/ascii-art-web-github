@@ -93,31 +93,33 @@ pre {
     text-align: center;
 }
 
-/* 505 internal server error */
-.serverError {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-}
-
-/* image for internal server error */
-.error {
-    image-rendering: url("../image/error_image.png");
-    max-width: 400px;
-    margin: 20px;
-}
-
-/* 404 page not found */
+/* error texts */
 p {
     text-align: center;
 }
 
 /* 404 page not found image */
-.error-container {
-    background-image: url("/assets/image/DALL.webp");
+.error-404 {
+    background-image: url("/assets/image/notfound.webp");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 300px;
+    background-position: center;
+    width: 100%;
+    padding-top: 200px;
+}
+
+.error-400 {
+    background-image: url("/assets/image/badrequest.webp");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 300px;
+    background-position: center;
+    width: 100%;
+    padding-top: 200px;
+}
+.error-500 {
+    background-image: url("/assets/image/servererror.webp");
     background-size: contain;
     background-repeat: no-repeat;
     height: 300px;

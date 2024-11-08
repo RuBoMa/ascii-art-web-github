@@ -29,7 +29,7 @@ func main() {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 
-	tmpl, err := template.ParseFiles("templates/home.html", "templates/notfound.html", "templates/500.html")
+	tmpl, err := template.ParseFiles("templates/home.html", "templates/404.html", "templates/500.html", "templates/400.html")
 	if err != nil {
 		log.Printf("Error loading template: %v", err)
 		serverErrorHandler(w, tmpl)
@@ -37,7 +37,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	data := PageData{}
 
-	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art"){
+	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
 		notFoundHandler(w, tmpl)
 		return
 	}
@@ -71,5 +71,11 @@ func serverErrorHandler(w http.ResponseWriter, tmpl *template.Template) {
 // 404 page not found handler
 func notFoundHandler(w http.ResponseWriter, tmpl *template.Template) {
 	w.WriteHeader(http.StatusNotFound)
-	tmpl.ExecuteTemplate(w, "notfound.html", nil)
+	tmpl.ExecuteTemplate(w, "404.html", nil)
+}
+
+// 400 page not found handler
+func badRequestHandler(w http.ResponseWriter, tmpl *template.Template) {
+	w.WriteHeader(http.StatusBadRequest)
+	tmpl.ExecuteTemplate(w, "400.html", nil)
 }
