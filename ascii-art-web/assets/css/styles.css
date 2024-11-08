@@ -13,7 +13,7 @@ h1 {
     text-align: center;
 }
 
-.hero {
+.background {
     background-image: url("../image/forest.jpg");
     background-repeat: no-repeat;
     background-size: auto;
@@ -28,21 +28,24 @@ div {
     align-items: left;
 }
 
-pre {
-    text-align: center;
-}
-
 select,
-textarea,
-button {
+textarea {
     margin: 10px;
-
 }
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
 /* generate button size */
 .generate {
     padding: 16px;
-    border-radius: 16px
+    border-radius: 16px;
 }
+
 /* choose font */
 label {
     color: white;
@@ -71,18 +74,23 @@ label {
     visibility: visible;
     pointer-events: none;
 }
+
 /* ASCII art box */
 .output-box {
     width: 90%;
     border: 1px solid #ccc;
     margin: 10px auto;
     background-color: #c6f5fb;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: auto;
     white-space: pre;
     border-radius: 8px;
     justify-content: center;
     max-height: 600px;
+}
+
+pre {
+    text-align: center;
 }
 
 /* 505 internal server error */

@@ -11,10 +11,8 @@
 
 <body>
 
-
-
     <form method="POST" action="/ascii-art">
-        <div class="hero">
+        <div class="background">
             <div>
                 <h1>ASCII-ART-WEB-GENERATOR</h1>
                 <label for="style">Choose a font:</label>
@@ -31,7 +29,7 @@
                     characters
                     (32-127 are printable ASCII characters).</span>
             </div>
-            
+
             <div>
 
                 <textarea id="userText" name="userText" placeholder="Type something here..." required rows="3"
@@ -39,15 +37,13 @@
                 <!-- Textarea for user input -->
 
             </div>
+            <div class="button-container">
+                <button class="generate" type="submit">Generate</button>
+                <button>
+                    <a href="https://www.asciitable.com/" target="_blank" class="learn-more-button">ASCII Table</a>
+                </button>
+            </div>
 
-
-            <button class="generate" type="submit">Generate</button>
-
-
-
-            <button>
-                <a href="https://www.asciitable.com/" target="_blank" class="learn-more-button">ASCII Table</a>
-            </button>
             <pre id="output-box" class="output-box"> {{ .AsciiArt }}</pre>
         </div>
         </div>
