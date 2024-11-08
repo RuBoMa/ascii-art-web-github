@@ -74,7 +74,7 @@ func notFoundHandler(w http.ResponseWriter, tmpl *template.Template) {
 	tmpl.ExecuteTemplate(w, "404.html", nil)
 }
 
-// 400 page not found handler
+// 400 bad request handler
 func badRequestHandler(w http.ResponseWriter, tmpl *template.Template) {
 	w.WriteHeader(http.StatusBadRequest)
 	tmpl.ExecuteTemplate(w, "400.html", nil)
