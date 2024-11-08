@@ -5,10 +5,12 @@ import (
 	"log"
 	"net/http"
 	"pkg/ascii"
+	"strings"
 )
 
 type PageData struct {
 	AsciiArt string
+	Fonts    []string
 }
 
 func main() {
@@ -35,7 +37,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		serverErrorHandler(w, tmpl)
 		return
 	}
-	data := PageData{}
+
+	data := PageData{
+		Fonts: []string{
+			"Standard",
+			"Shadow",
+			"Thinkertoy",
+		},
+	}
 
 	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
 		notFoundHandler(w, tmpl)
@@ -46,7 +55,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		banner := r.FormValue("style")
 		log.Println("Selected input: " + input + " and banner: " + banner)
 
-		asciiArt, err := ascii.PrintAsciiArt(input, banner)
+		asciiArt, err := ascii.PrintAsciiArt(input, strings.ToLower(banner))
 		if err != nil {
 			serverErrorHandler(w, tmpl)
 			return

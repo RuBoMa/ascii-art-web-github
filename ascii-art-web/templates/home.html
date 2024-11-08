@@ -17,21 +17,21 @@
                 <h1>ASCII-ART-WEB-GENERATOR</h1>
                 <label for="style">Choose a font:</label>
                 <select name="style" id="style">
-                    <option value="standard">Standard</option>
-                    <option value="shadow">Shadow</option>
-                    <option value="thinkertoy">Thinkertoy</option>
+                    {{range .Fonts}}
+                    <option value="{{.}}">{{.}}</option>
+                {{end}}
                 </select>
                 <span class="icon">ℹ️</span>
                 <span class="info-text">This website generates ASCII art from user input.<br>Select a font and type in
                     the
-                    field below.<br>Note: only printable ASCII characters are displayed.
+                    field below.<br>Note: only printable ASCII characters (dec value 32-126) work.
                     </span>
             </div>
 
             <div>
 
-                <textarea id="userText" name="userText" placeholder="Type something here..." required rows="3"
-                    cols="25"></textarea>
+                <textarea id="userText" name="userText" placeholder="Type here..." required rows="5"
+                    cols="30"></textarea>
                 <!-- Textarea for user input -->
 
             </div>
