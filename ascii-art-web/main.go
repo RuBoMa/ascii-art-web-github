@@ -10,7 +10,6 @@ import (
 
 type PageData struct {
 	AsciiArt string
-	Fonts    []string
 }
 
 func main() {
@@ -38,13 +37,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := PageData{
-		Fonts: []string{
-			"Standard",
-			"Shadow",
-			"Thinkertoy",
-		},
-	}
+	data := PageData{}
 
 	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
 		notFoundHandler(w, tmpl)
@@ -52,6 +45,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	if r.Method == http.MethodPost {
 		input := r.FormValue("userText")
+		if !ascii.ValidInput(input) {
+			log.Println("Bad request, input included other than printable ascii characters")
+			badRequestHandler(w, tmpl)
+			return
+		}
+		log.Println("Input valid")
 		banner := r.FormValue("style")
 		log.Println("Selected input: " + input + " and banner: " + banner)
 
