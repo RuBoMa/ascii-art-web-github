@@ -14,7 +14,17 @@
     <form method="POST" action="/ascii-art">
         <div class="background">
             <div>
-                <h1>ASCII-ART-WEB-GENERATOR</h1>
+                <h2>
+                 <pre>
+                             _____    _____   _____   _____                       _____    _______  
+                    /\      / ____|  / ____| |_   _| |_   _|              /\     |  __ \  |__   __| 
+                   /  \    | (___   | |        | |     | |    ______     /  \    | |__) |    | |    
+                  / /\ \    \___ \  | |        | |     | |   |______|   / /\ \   |  _  /     | |    
+                 / ____ \   ____) | | |____   _| |_   _| |_            / ____ \  | | \ \     | |    
+                /_/    \_\ |_____/   \_____| |_____| |_____|          /_/    \_\ |_|  \_\    |_|    
+                                                                                                    
+                 </pre>
+                </h2>
                 <label for="style">Choose a font:</label>
                 <select name="style" id="style">
                     {{range .Fonts}}
