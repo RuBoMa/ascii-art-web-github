@@ -13,17 +13,18 @@ type PageData struct {
 }
 
 func main() {
-	// server static files like css or images
-	fs := http.FileServer(http.Dir("assets"))
-	http.Handle("/assets/", http.StripPrefix("/assets", fs))
-	//route handler for home page
+	// Serving static files like css or images
+	fileServer := http.FileServer(http.Dir("assets"))
+	http.Handle("/assets/", http.StripPrefix("/assets", fileServer))
+
+	// Handling the GET request to the root URL ("/")
 	http.HandleFunc("/", handler)
 
 	log.Println("server is running on http://localhost:8080")
 	// start the server on port 8080 and listen to incoming requests
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error starting the server: ", err)
 	}
 
 }
@@ -36,7 +37,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		serverErrorHandler(w, tmpl)
 		return
 	}
-
+	// Creating dynamic data
 	data := PageData{}
 
 	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
@@ -45,23 +46,25 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	if r.Method == http.MethodPost {
 		input := r.FormValue("userText")
-		if !ascii.ValidInput(input) {
-			log.Println("Bad request, input included other than printable ascii characters")
+		log.Println("Selected input: " + input)
+
+		banner := r.FormValue("style")
+		log.Println("Selected banner: " + banner)
+
+		cleanInput, valid := ascii.ValidInput(input)
+		bannerCont, err := ascii.AvailableBanner(strings.ToLower(banner))
+
+		if err != nil || !valid {
+			log.Printf("Bad request, valid input = %v, banner error: %v", valid, err)
 			badRequestHandler(w, tmpl)
 			return
 		}
-		log.Println("Input valid")
-		banner := r.FormValue("style")
-		log.Println("Selected input: " + input + " and banner: " + banner)
 
-		asciiArt, err := ascii.PrintAsciiArt(input, strings.ToLower(banner))
-		if err != nil {
-			serverErrorHandler(w, tmpl)
-			return
-		}
+		asciiArt := ascii.PrintAsciiArt(cleanInput, bannerCont)
+
 		data.AsciiArt = asciiArt
-
 	}
+
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		log.Printf("Error executing template: %v", err)
