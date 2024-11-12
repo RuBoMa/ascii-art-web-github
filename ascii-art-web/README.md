@@ -14,19 +14,19 @@ web-based usage
 
 Usage:
 
-# Start the Server: by running the following command in your terminal: go run main.go
+1. Start the Server: by running the following command in your terminal: go run main.go
 
-# Open in Browser: In your browser, navigate to http://localhost:8080
+2. Open in Browser: In your browser, navigate to http://localhost:8080
 
 After page is live, just simply type text to the input field and press "generate"
 
-# Generate ASCII Art:
+3. Generate ASCII Art:
 
-# Select a font style from the options on the webpage.
+- Select a font style from the options on the webpage.
 
-# Enter your desired text in the input field. Note: max 500 characters, only printable ascii-characters
+- Enter your desired text in the input field. Note: max 500 characters, only printable ascii-characters
 
-# Click the Generate button to see your text transformed into ASCII art!
+- Click the Generate button to see your text transformed into ASCII art!
 
 Implemention details:
 
