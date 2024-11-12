@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"pkg/ascii"
-	"strings"
 )
 
 type PageData struct {
@@ -47,22 +46,30 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		input := r.FormValue("userText")
 		log.Println("Selected input: " + input)
+		cleanInput, valid := ascii.ValidInput(input)
+		if !valid {
+			log.Printf("Bad request, invalid input")
+			badRequestHandler(w, tmpl)
+			return
+		}
 
 		banner := r.FormValue("style")
 		log.Println("Selected banner: " + banner)
-
-		cleanInput, valid := ascii.ValidInput(input)
-		bannerCont, err := ascii.AvailableBanner(strings.ToLower(banner))
-
-		if err != nil || !valid {
-			log.Printf("Bad request, valid input = %v, banner error: %v", valid, err)
-			badRequestHandler(w, tmpl)
+		bannerCont, err := ascii.ReadBanner(banner)
+		if err != nil {
+			serverErrorHandler(w, tmpl)
 			return
 		}
 
 		asciiArt := ascii.PrintAsciiArt(cleanInput, bannerCont)
 
 		data.AsciiArt = asciiArt
+
+	} else if r.Method != http.MethodGet {
+		log.Printf("Bad request, not GET or POST")
+		badRequestHandler(w, tmpl)
+		return
+
 	}
 
 	err = tmpl.Execute(w, data)

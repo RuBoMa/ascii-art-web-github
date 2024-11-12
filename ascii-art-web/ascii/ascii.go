@@ -53,7 +53,8 @@ func ValidInput(input string) (string, bool) {
 	return input, true // Input consists of only printable ascii characters and newlines
 }
 
-func AvailableBanner(banner string) (string, error) {
+// Reading the banner file from the directory and removing carriage returns
+func ReadBanner(banner string) (string, error) {
 	bannerContent, err := os.ReadFile("./banners/" + banner + ".txt")
 	if err != nil {
 		log.Print("Error reading banner file: ", err)
