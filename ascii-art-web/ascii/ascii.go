@@ -14,17 +14,13 @@ func PrintAsciiArt(input, banner string) string {
 	if len(input) > 0 {
 		bannerFileLines := strings.Split(banner, "\n")
 
-		input = strings.ReplaceAll(input, "\\n", "\n")
 		inputSlice := strings.Split(input, "\n")
-
-		//onlyNewLines := true
 
 		//An empty index generates a newline, else the index is looped to match indexes from bannerFileLines
 		for _, inputLine := range inputSlice {
 			if inputLine == "" {
 				result += "\n"
 			} else {
-				//onlyNewLines = false
 				for i := 1; i <= 8; i++ {
 					for _, char := range inputLine {
 						result += bannerFileLines[i+(int(char-32)*9)]
@@ -33,9 +29,6 @@ func PrintAsciiArt(input, banner string) string {
 				}
 			}
 		}
-		// if onlyNewLines {
-		// 	result = result[:1]
-		// }
 	}
 	return result
 }
