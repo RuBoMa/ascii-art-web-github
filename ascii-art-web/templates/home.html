@@ -15,7 +15,7 @@
         <div class="background">
             <div>
                 <h2>
-                 <pre>
+                    <pre>
                              _____    _____   _____   _____                       _____    _______  
                     /\      / ____|  / ____| |_   _| |_   _|              /\     |  __ \  |__   __| 
                    /  \    | (___   | |        | |     | |    ______     /  \    | |__) |    | |    
@@ -25,36 +25,39 @@
                                                                                                     
                  </pre>
                 </h2>
+
+                <!-- font selector , drop down menu-->
+
                 <label for="style">Choose a font:</label>
                 <select name="style" id="style">
                     <option value="standard">Standard</option>
                     <option value="shadow">Shadow</option>
                     <option value="thinkertoy">Thinkertoy</option>
                 </select>
+
+                <!-- info icon -->
                 <span class="icon">ℹ️</span>
                 <span class="info-text">This website generates ASCII art from user input.<br>Select a font and type in
                     the
                     field below.<br>Max 500 characters<br>NOTE: Only printable ASCII characters are allowed.
-                    </span>
+                </span>
             </div>
-
+            <!-- Textarea for user input -->
             <div>
-
-                <textarea id="userText" name="userText" placeholder="Type something here..." required rows="3"
-                    cols="25" maxlength="500"></textarea>
-                <!-- Textarea for user input -->
-
+                <textarea id="userText" name="userText" placeholder="Type something here..." required rows="3" cols="25"
+                    maxlength="500"></textarea>
             </div>
+            <!-- Generate & learn learn-more-button -->
             <div class="button-container">
                 <button class="generate" type="submit">Generate</button>
                 <button>
                     <a href="https://www.asciitable.com/" target="_blank" class="learn-more-button">View ASCII Table</a>
                 </button>
+                <!-- output-box -->
             </div>
-
             <pre id="output-box" class="output-box"> {{ .AsciiArt }}</pre>
         </div>
-        </div>
+
     </form>
 
 
