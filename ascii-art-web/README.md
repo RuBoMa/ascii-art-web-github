@@ -1,8 +1,9 @@
 # ascii-art-web-github
+
 ASCII Art Generator
 
 Description:
-ASCII Art Generator is a Go-based tool that converts text input into ASCII art. This project is designed for fun and learning, allowing users to create customized text art for terminal or web displays.
+ASCII Art Generator is a Go-based tool that converts text input into ASCII art. This project is designed for fun and learning, allowing users to create customized text art for web displays.
 
 Authors: Fanni & Roope
 
@@ -13,17 +14,19 @@ web-based usage
 
 Usage:
 
-Start the Server: Run the following command in your terminal to start the server: go run main.go
+# Start the Server: by running the following command in your terminal: go run main.go
 
-Open in Browser: In your browser, navigate to http://localhost:8080
+# Open in Browser: In your browser, navigate to http://localhost:8080
 
 After page is live, just simply type text to the input field and press "generate"
 
-Generate ASCII Art:
+# Generate ASCII Art:
 
-Select a font style from the options on the webpage.
-Enter your desired text in the input field.
-Click the Generate button to see your text transformed into ASCII art!
+# Select a font style from the options on the webpage.
+
+# Enter your desired text in the input field. Note: max 500 characters, only printable ascii-characters
+
+# Click the Generate button to see your text transformed into ASCII art!
 
 Implemention details:
 
