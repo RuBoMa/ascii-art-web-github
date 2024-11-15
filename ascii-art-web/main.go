@@ -29,7 +29,7 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-
+	//reads the templates and saves it in tmpl
 	tmpl, err := template.ParseFiles("templates/home.html", "templates/404.html", "templates/500.html", "templates/400.html")
 	if err != nil {
 		log.Printf("Error loading template: %v", err)
@@ -48,7 +48,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		log.Println("Selected input: " + input)
 		cleanInput, valid := ascii.ValidInput(input)
 		if !valid {
-			log.Printf("Bad request, invalid input")
 			badRequestHandler(w, tmpl)
 			return
 		}
@@ -61,9 +60,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		asciiArt := ascii.PrintAsciiArt(cleanInput, bannerCont)
-
-		data.AsciiArt = asciiArt
+		data.AsciiArt = ascii.PrintAsciiArt(cleanInput, bannerCont)
 
 	} else if r.Method != http.MethodGet {
 		log.Printf("Bad request, not GET or POST")
@@ -71,7 +68,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 
 	}
-
+	
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		log.Printf("Error executing template: %v", err)

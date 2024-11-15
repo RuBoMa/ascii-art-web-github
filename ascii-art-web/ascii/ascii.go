@@ -39,6 +39,7 @@ func ValidInput(input string) (string, bool) {
 
 	for _, char := range input {
 		if (char < 32 || char > 127) && char != '\n' {
+			log.Println("Invalid character in input: ", string(char))
 			return input, false // Input has non-printable chacarters
 		}
 	}
