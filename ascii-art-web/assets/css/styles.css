@@ -33,10 +33,11 @@ body {
 .background {
     background-image: url("../image/forest.jpg");
     background-repeat: no-repeat;
-    background-size: auto;
-    padding-top: 50px;
-    width: 100vw;
+    background-size: cover;
+    background-attachment: fixed;
     height: 100vw;
+    background-position: center;
+
 }
 
 div {
