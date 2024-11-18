@@ -1,10 +1,10 @@
 html,
 body {
-    height: 100%;
+    height: 100vh;
     overflow-x: hidden;
     overflow-y: hidden;
     margin: 0;
-
+    background-color: lightblue;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -15,18 +15,11 @@ body {
     display: flex;
     /* Centers the ASCII art horizontally */
     justify-content: center;
-    overflow: hidden;
-    /* Prevents overflow issues */
-    width: 100vw;
-
 }
 
 .ascii-header pre {
-    font-size: calc(1.5vw);
     /* Dynamically scales the font size */
-    white-space: pre;
-    text-align: center;
-    padding-right: 100px;
+    font-size: calc(1.5vw);
 }
 
 
@@ -38,7 +31,6 @@ body {
 }
 
 div {
-
     text-align: center;
     align-items: left;
 }
@@ -78,9 +70,8 @@ label {
     color: #fff;
     text-align: left;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     position: absolute;
-    z-index: 1;
     margin-top: 5px;
     font-size: 14px;
 }
@@ -94,7 +85,7 @@ label {
 /* ASCII art box */
 .output-box {
     width: 90%;
-    border: 1px solid #ccc;
+
     margin: 10px auto;
     background-color: #c6f5fb;
     overflow-y: auto;
@@ -102,7 +93,7 @@ label {
     white-space: pre;
     border-radius: 8px;
     justify-content: center;
-    max-height: 600px;
+    max-height: 300px;
 }
 
 pre {
@@ -117,31 +108,31 @@ p {
 
 /* 404 page not found image */
 .error-404 {
-    background-image: url("/assets/image/notfound.webp");
+    background: url("/assets/image/notfound.webp");
     background-size: contain;
     background-repeat: no-repeat;
-    height: 300px;
     background-position: center;
-    width: 100%;
-    padding-top: 200px;
+
+    height: 90vh;
+    width: auto;
 }
 
 .error-400 {
-    background-image: url("/assets/image/badrequest.webp");
+    background: url("/assets/image/badrequest.webp");
     background-size: contain;
     background-repeat: no-repeat;
-    height: 300px;
     background-position: center;
-    width: 100%;
-    padding-top: 200px;
+
+    height: 90vh;
+    width: auto;
 }
 
 .error-500 {
-    background-image: url("/assets/image/servererror.webp");
+    background: url("/assets/image/servererror.webp");
     background-size: contain;
     background-repeat: no-repeat;
-    height: 300px;
     background-position: center;
-    width: 100%;
-    padding-top: 200px;
+
+    height: 90vh;
+    width: auto;
 }
