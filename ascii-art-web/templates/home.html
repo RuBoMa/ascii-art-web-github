@@ -16,7 +16,7 @@
             <div>
                 <div class="ascii-header">
                     <h2>
-                    <pre>
+                        <pre>
                  _____    _____   _____   _____                       _____    _______  
         /\      / ____|  / ____| |_   _| |_   _|              /\     |  __ \  |__   __| 
        /  \    | (___   | |        | |     | |    ______     /  \    | |__) |    | |    
@@ -31,9 +31,10 @@
 
                 <label for="style">Choose a font:</label>
                 <select name="style" id="style">
-                    <option value="standard">Standard</option>
-                    <option value="shadow">Shadow</option>
-                    <option value="thinkertoy">Thinkertoy</option>
+                    <option value="standard" {{if eq .SelectedBanner "standard" }}selected{{end}}>Standard</option>
+                    <option value="shadow" {{if eq .SelectedBanner "shadow" }}selected{{end}}>Shadow</option>
+                    <option value="thinkertoy" {{if eq .SelectedBanner "thinkertoy" }}selected{{end}}>Thinkertoy
+                    </option>
                 </select>
 
                 <!-- info icon -->

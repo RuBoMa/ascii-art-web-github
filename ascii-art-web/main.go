@@ -9,6 +9,7 @@ import (
 
 type PageData struct {
 	AsciiArt string
+	SelectedBanner string
 }
 
 func main() {
@@ -29,6 +30,7 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	SelectedBanner := "standard"
 	//reads the templates and saves it in tmpl
 	tmpl, err := template.ParseFiles("templates/home.html", "templates/404.html", "templates/500.html", "templates/400.html")
 	if err != nil {
@@ -37,7 +39,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Creating dynamic data
-	data := PageData{}
+	data := PageData{
+		SelectedBanner: SelectedBanner,
+	}
 
 	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
 		notFoundHandler(w, tmpl)
@@ -61,6 +65,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		data.AsciiArt = ascii.PrintAsciiArt(cleanInput, bannerCont)
+
+		data.SelectedBanner = banner
 
 	} else if r.Method != http.MethodGet {
 		log.Printf("Bad request, not GET or POST")
