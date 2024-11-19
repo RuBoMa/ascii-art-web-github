@@ -36,40 +36,46 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		serverErrorHandler(w, tmpl)
 		return
 	}
-	// Creating dynamic data
-	data := PageData{}
 
-	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
-		notFoundHandler(w, tmpl)
-		return
-	}
-	if r.Method == http.MethodPost {
-		input := r.FormValue("userText")
-		log.Println("Selected input: " + input)
-		cleanInput, valid := ascii.ValidInput(input)
-		if !valid {
-			badRequestHandler(w, tmpl)
-			return
-		}
-
-		banner := r.FormValue("style")
-		log.Println("Selected banner: " + banner)
-		bannerCont, err := ascii.ReadBanner(banner)
-		if err != nil {
-			serverErrorHandler(w, tmpl)
-			return
-		}
-
-		data.AsciiArt = ascii.PrintAsciiArt(cleanInput, bannerCont)
-
-	} else if r.Method != http.MethodGet {
+	if r.Method != http.MethodGet && r.Method != http.MethodPost {
 		log.Printf("Bad request, not GET or POST")
 		badRequestHandler(w, tmpl)
 		return
 
 	}
-	
-	err = tmpl.Execute(w, data)
+
+	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
+		notFoundHandler(w, tmpl)
+		return
+	}
+
+	// Creating dynamic data
+	data := PageData{}
+
+	if r.Method == http.MethodPost {
+
+		input := r.FormValue("userText")
+		log.Println("Selected input: " + input)
+		cleanInput, valid := ascii.ValidInput(input)
+		if !valid {
+			w.WriteHeader(http.StatusBadRequest)
+			data.AsciiArt = cleanInput
+		} else {
+
+			banner := r.FormValue("style")
+			log.Println("Selected banner: " + banner)
+			bannerCont, err := ascii.ReadBanner(banner)
+			if err != nil {
+				serverErrorHandler(w, tmpl)
+				return
+			}
+
+			data.AsciiArt = ascii.PrintAsciiArt(cleanInput, bannerCont)
+		}
+
+	}
+
+	err = tmpl.ExecuteTemplate(w, "home.html", data)
 	if err != nil {
 		log.Printf("Error executing template: %v", err)
 		serverErrorHandler(w, tmpl)
