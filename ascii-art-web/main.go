@@ -32,51 +32,56 @@ func main() {
 func handler(w http.ResponseWriter, r *http.Request) {
 
 	//reads the templates and saves it in tmpl
-	tmpl, err := template.ParseFiles("templates/home.html", "templates/404.html", "templates/500.html", "templates/400.html")
+	tmpl, err := template.ParseFiles("templates/home.html", "templates/400.html", "templates/404.html", "templates/500.html")
 	if err != nil {
 		log.Printf("Error loading template: %v", err)
 		serverErrorHandler(w, tmpl)
 		return
-	}
-	defaultBanner := "standard"
-	// Creating dynamic data
-	data := PageData{
-		SelectedBanner: defaultBanner,
 	}
 
 	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
 		notFoundHandler(w, tmpl)
 		return
 	}
-	if r.Method == http.MethodPost {
-		input := r.FormValue("userText")
-		log.Println("Selected input: " + input)
-		cleanInput, valid := ascii.ValidInput(input)
-		if !valid {
-			badRequestHandler(w, tmpl)
-			return
-		}
 
-		banner := r.FormValue("style")
-		log.Println("Selected banner: " + banner)
-		bannerCont, err := ascii.ReadBanner(banner)
-		if err != nil {
-			serverErrorHandler(w, tmpl)
-			return
-		}
-
-		data.AsciiArt = ascii.PrintAsciiArt(cleanInput, bannerCont)
-
-		data.SelectedBanner = banner
-
-	} else if r.Method != http.MethodGet {
-		log.Printf("Bad request, not GET or POST")
+	if r.Method != http.MethodGet && r.Method != http.MethodPost {
+		log.Printf("Bad request, method not GET or POST")
 		badRequestHandler(w, tmpl)
 		return
 
 	}
 
-	err = tmpl.Execute(w, data)
+	defaultBanner := "standard"
+	// Creating dynamic data
+	data := PageData{
+		SelectedBanner: defaultBanner,
+	}
+
+	if r.Method == http.MethodPost {
+
+		input := r.FormValue("userText")
+		log.Println("Selected input: " + input)
+		cleanInput, valid := ascii.ValidInput(input)
+		if !valid {
+			w.WriteHeader(http.StatusBadRequest)
+			data.AsciiArt = cleanInput
+		} else {
+
+			banner := r.FormValue("style")
+			log.Println("Selected banner: " + banner)
+			bannerCont, err := ascii.ReadBanner(banner)
+			if err != nil {
+				serverErrorHandler(w, tmpl)
+				return
+			}
+
+			data.AsciiArt = ascii.PrintAsciiArt(cleanInput, bannerCont)
+
+			data.SelectedBanner = banner
+
+		}
+	}
+	err = tmpl.ExecuteTemplate(w, "home.html", data)
 	if err != nil {
 		log.Printf("Error executing template: %v", err)
 		serverErrorHandler(w, tmpl)

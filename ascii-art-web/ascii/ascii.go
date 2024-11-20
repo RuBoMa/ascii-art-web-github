@@ -35,13 +35,30 @@ func PrintAsciiArt(input, banner string) string {
 
 // Replacing carriage return with a newline and checking if all characters are printable
 func ValidInput(input string) (string, bool) {
+	if input == "" {
+		return "Your didn't enter any input", false
+	}
+
 	input = strings.ReplaceAll(input, "\r\n", "\n")
+	nonPrintable := make(map[rune]bool)
 
 	for _, char := range input {
 		if (char < 32 || char > 127) && char != '\n' {
-			log.Println("Invalid character in input: ", string(char))
-			return input, false // Input has non-printable chacarters
+			if !nonPrintable[char] {
+				nonPrintable[char] = true
+
+			}
 		}
+	}
+	if len(nonPrintable) > 0 {
+		var charSlice []string
+		for char := range nonPrintable {
+			charSlice = append(charSlice, string(char))
+		}
+		invalidChars := strings.Join(charSlice, ", ")
+		log.Println("Invalid character in input: ", invalidChars)
+		errormsg := "\n\nCouldn't create Ascii-Art due to invalid characters.\n\nYou entered: " + input + "\n\n" + "These characters are not allowed: " + invalidChars + "\n\n"
+		return errormsg, false
 	}
 
 	return input, true // Input consists of only printable ascii characters and newlines
