@@ -8,26 +8,19 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-
-
 .ascii-header {
     color: lightcoral;
     display: flex;
     /* Centers the ASCII art horizontally */
     justify-content: center;
-}
-
-.ascii-header pre {
-    /* Dynamically scales the font size */
     font-size: calc(1.5vw);
 }
-
 
 .background {
     background-image: url("../image/forest.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh !important;
+    height: 100vh;
 }
 
 div {
@@ -53,7 +46,7 @@ textarea {
     border-radius: 16px;
 }
 
-/* choose font */
+/* font color */
 label {
     color: white;
 }
@@ -79,26 +72,19 @@ label {
 /* Show info text on hover */
 .icon:hover+.info-text {
     visibility: visible;
-    pointer-events: none;
 }
 
 /* ASCII art box */
 .output-box {
     width: 90%;
-
     margin: 10px auto;
     background-color: #c6f5fb;
     overflow-y: auto;
     overflow-x: auto;
     white-space: pre;
     border-radius: 8px;
-    justify-content: center;
-    max-height: 300px;
-}
-
-pre {
     text-align: center;
-    align-items: center;
+    max-height: 300px;
 }
 
 /* error texts */
@@ -106,9 +92,10 @@ p {
     text-align: center;
 }
 
-/* 404 page not found image */
-.error-404 {
-    background: url("/assets/image/notfound.webp");
+/* error images */
+
+.error-400 {
+    background: url("/assets/image/badrequest.webp");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -117,8 +104,8 @@ p {
     width: auto;
 }
 
-.error-400 {
-    background: url("/assets/image/badrequest.webp");
+.error-404 {
+    background: url("/assets/image/notfound.webp");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

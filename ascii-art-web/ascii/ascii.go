@@ -44,12 +44,11 @@ func ValidInput(input string) (string, bool) {
 
 	for _, char := range input {
 		if (char < 32 || char > 127) && char != '\n' {
-			if !nonPrintable[char] {
-				nonPrintable[char] = true
-
-			}
+			nonPrintable[char] = true // mapping all unique invalid characters
 		}
 	}
+
+	// If there are any invalid characters, returning the error message with the input and invalid characters
 	if len(nonPrintable) > 0 {
 		var charSlice []string
 		for char := range nonPrintable {

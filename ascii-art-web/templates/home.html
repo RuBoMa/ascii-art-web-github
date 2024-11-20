@@ -13,9 +13,8 @@
 
     <form method="POST" action="/ascii-art">
         <div class="background">
-            <div>
+
                 <div class="ascii-header">
-                    <h2>
                         <pre>
                  _____    _____   _____   _____                       _____    _______  
         /\      / ____|  / ____| |_   _| |_   _|              /\     |  __ \  |__   __| 
@@ -25,10 +24,10 @@
     /_/    \_\ |_____/   \_____| |_____| |_____|          /_/    \_\ |_|  \_\    |_|    
                                                                                                     
                  </pre>
-                    </h2>
                 </div>
-                <!-- font selector , drop down menu-->
 
+                <!-- font selector , drop down menu-->
+                <div>
                 <label for="style">Choose a font:</label>
                 <select name="style" id="style">
                     <option value="standard" {{if eq .SelectedBanner "standard" }}selected{{end}}>Standard</option>

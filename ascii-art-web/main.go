@@ -29,6 +29,7 @@ func main() {
 
 }
 
+// Parsing templates, executing home.html with dynamic data
 func handler(w http.ResponseWriter, r *http.Request) {
 
 	//reads the templates and saves it in tmpl
@@ -39,11 +40,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//giving error for any other URL paths than root and /ascii-art
 	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
 		notFoundHandler(w, tmpl)
 		return
 	}
 
+	//giving error for any other methods than GET or POST
 	if r.Method != http.MethodGet && r.Method != http.MethodPost {
 		log.Printf("Bad request, method not GET or POST")
 		badRequestHandler(w, tmpl)
@@ -51,36 +54,36 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	defaultBanner := "standard"
 	// Creating dynamic data
 	data := PageData{
-		SelectedBanner: defaultBanner,
+		SelectedBanner: "standard",
 	}
 
+	//handling POST validating banner and input, creating Ascii-Art
 	if r.Method == http.MethodPost {
+
+		banner := r.FormValue("style")
+		log.Println("Selected banner: " + banner)
+		bannerCont, err := ascii.ReadBanner(banner)
+		if err != nil {
+			serverErrorHandler(w, tmpl)
+			return
+		}
+
+		// Keeping the selected banner as default
+		data.SelectedBanner = banner
 
 		input := r.FormValue("userText")
 		log.Println("Selected input: " + input)
-		cleanInput, valid := ascii.ValidInput(input)
+		output, valid := ascii.ValidInput(input)
 		if !valid {
 			w.WriteHeader(http.StatusBadRequest)
-			data.AsciiArt = cleanInput
+			data.AsciiArt = output
 		} else {
-
-			banner := r.FormValue("style")
-			log.Println("Selected banner: " + banner)
-			bannerCont, err := ascii.ReadBanner(banner)
-			if err != nil {
-				serverErrorHandler(w, tmpl)
-				return
-			}
-
-			data.AsciiArt = ascii.PrintAsciiArt(cleanInput, bannerCont)
-
-			data.SelectedBanner = banner
-
+			data.AsciiArt = ascii.PrintAsciiArt(output, bannerCont)
 		}
 	}
+
 	err = tmpl.ExecuteTemplate(w, "home.html", data)
 	if err != nil {
 		log.Printf("Error executing template: %v", err)
