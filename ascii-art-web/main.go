@@ -8,7 +8,7 @@ import (
 )
 
 type PageData struct {
-	AsciiArt string
+	AsciiArt       string
 	SelectedBanner string
 }
 
@@ -30,7 +30,7 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	SelectedBanner := "standard"
+
 	//reads the templates and saves it in tmpl
 	tmpl, err := template.ParseFiles("templates/home.html", "templates/404.html", "templates/500.html", "templates/400.html")
 	if err != nil {
@@ -38,9 +38,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		serverErrorHandler(w, tmpl)
 		return
 	}
+	defaultBanner := "standard"
 	// Creating dynamic data
 	data := PageData{
-		SelectedBanner: SelectedBanner,
+		SelectedBanner: defaultBanner,
 	}
 
 	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
@@ -74,7 +75,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 
 	}
-	
+
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		log.Printf("Error executing template: %v", err)
