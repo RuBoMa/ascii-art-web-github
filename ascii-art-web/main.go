@@ -10,7 +10,11 @@ import (
 type PageData struct {
 	AsciiArt       string
 	SelectedBanner string
+	Input          string
 }
+
+// reads the templates and saves it in tmpl
+var tmpl = template.Must(template.ParseFiles("templates/home.html", "templates/400.html", "templates/404.html", "templates/500.html"))
 
 func main() {
 	// Serving static files like css or images
@@ -31,14 +35,6 @@ func main() {
 
 // Parsing templates, executing home.html with dynamic data
 func handler(w http.ResponseWriter, r *http.Request) {
-
-	//reads the templates and saves it in tmpl
-	tmpl, err := template.ParseFiles("templates/home.html", "templates/400.html", "templates/404.html", "templates/500.html")
-	if err != nil {
-		log.Printf("Error loading template: %v", err)
-		serverErrorHandler(w, tmpl)
-		return
-	}
 
 	//giving error for any other URL paths than root and /ascii-art
 	if !(r.URL.Path == "/" || r.URL.Path == "/ascii-art") {
@@ -75,6 +71,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		input := r.FormValue("userText")
 		log.Println("Selected input: " + input)
+		data.Input = "\n" + input
 		output, valid := ascii.ValidInput(input)
 		if !valid {
 			w.WriteHeader(http.StatusBadRequest)
@@ -84,7 +81,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	err = tmpl.ExecuteTemplate(w, "home.html", data)
+	err := tmpl.ExecuteTemplate(w, "home.html", data)
 	if err != nil {
 		log.Printf("Error executing template: %v", err)
 		serverErrorHandler(w, tmpl)
