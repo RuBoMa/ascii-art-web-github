@@ -42,14 +42,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//giving error for any other methods than GET or POST
-	if r.Method != http.MethodGet && r.Method != http.MethodPost {
-		log.Printf("Bad request, method not GET or POST")
-		badRequestHandler(w, tmpl)
-		return
-
-	}
-
 	// Creating dynamic data
 	data := PageData{
 		SelectedBanner: "standard",
@@ -79,6 +71,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			data.AsciiArt = ascii.PrintAsciiArt(output, bannerCont)
 		}
+	} else if r.Method != http.MethodGet {
+		log.Printf("Bad request, method not GET or POST")
+		badRequestHandler(w, tmpl)
+		return
+
 	}
 
 	err := tmpl.ExecuteTemplate(w, "home.html", data)
