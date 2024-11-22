@@ -6,8 +6,8 @@ TAG="latest"
 
 # Build the docker image
 echo "Building Docker image: $IMAGE_NAME:$TAG..."
-docker build -t $IMAGE_NAME:$TAG .
+docker build --tag $IMAGE_NAME:$TAG .
 
 # Start container on port 8080
-echo "Starting container: $IMAGE_NAME:$TAG..."
-docker run -p 8080:8080 --name asciiweb $IMAGE_NAME
+echo "Starting container in Docker: $IMAGE_NAME:$TAG..."
+docker run --detach --port 8080:8080 --name asciiweb $IMAGE_NAME

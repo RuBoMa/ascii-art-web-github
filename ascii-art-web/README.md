@@ -13,7 +13,7 @@ Text-to-ASCII art conversion
 Supports multiple ASCII styles (standard, shadow, thinkertoy)
 web-based usage
 
-Usage:
+## Usage:
 
 1. Start the Server: by running the following command in your terminal: go run main.go
 
@@ -26,6 +26,13 @@ Usage:
 - Enter your desired text in the input field. Note: max 500 characters, only printable ascii-characters
 
 - Click the Generate button to see your text transformed into ASCII art!
+
+### Alternatively start the server in Docker:
+
+1. Run following commands in the terminal:
+
+- chmod + x build.sh
+- ./build.sh
 
 Implemention details:
 
