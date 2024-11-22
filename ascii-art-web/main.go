@@ -24,7 +24,7 @@ func main() {
 	// Handling the GET request to the root URL ("/")
 	http.HandleFunc("/", handler)
 
-	log.Println("server is running on http://localhost:8080")
+	log.Println("server started")
 	// start the server on port 8080 and listen to incoming requests
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
