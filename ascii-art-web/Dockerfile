@@ -13,7 +13,7 @@ RUN go mod download
 # Some metadata for ascii art web project
 LABEL maintainer="roope.hongisto@gritlab.ax"
 LABEL version="1.0"
-LABEL description="Dockerfile for ascii-art-web project"
+LABEL description="Web project creating Ascii Art from text"
 
 # Copy the source code.
 COPY . ./
